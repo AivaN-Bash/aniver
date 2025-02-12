@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Special Day ❤️</title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(45deg, #fadcd9, #b76e79);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-y: auto; /* allow vertical scrolling */
+      position: relative;
+    }
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      body {
+        align-items: flex-start;
+        padding-top: 20px;
+      }
+    }
+    
+    /* Floating Hearts Background */
+    .floating-hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .floating-hearts .small-heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #b76e79;
+      transform: rotate(45deg);
+      opacity: 0.7;
+      animation: floatUp 4s ease-in-out infinite;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+    }
+    .floating-hearts .small-heart::before,
+    .floating-hearts .small-heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #b76e79;
+      border-radius: 50%;
+    }
+    .floating-hearts .small-heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .floating-hearts .small-heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% { opacity: 1; }
+      100% {
+        transform: translateY(-100px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    .small-heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .small-heart:nth-child(2) { left: 30%; animation-delay: 1s; }
+    .small-heart:nth-child(3) { left: 50%; animation-delay: 2s; }
+    .small-heart:nth-child(4) { left: 70%; animation-delay: 3s; }
+    .small-heart:nth-child(5) { left: 90%; animation-delay: 4s; }
+    
+    /* Main Container with Rose–Gold Accents */
+    .container {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(183, 110, 121, 0.3);
+      margin-bottom: 20px;
+    }
+    
+    /* Cute Icon (e.g., Cinnamoroll) */
+    .cute-icon {
+      width: 150px;
+      margin: 0 auto 10px;
+      display: block;
+      position: relative;
+      z-index: 1;
+      animation: bounce 1.5s ease-in-out infinite;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #b76e79;
+    }
+    input[type="date"] {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 10px auto;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 24px;
+      background: #b76e79;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 300px;
+    }
+    button:hover {
+      background: #c38f86;
+    }
+    .hidden {
+      display: none;
+    }
+    
+    /* Central Pulsing Heart Animation */
+    .heart {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 60px;
+      height: 60px;
+      background-color: #b76e79;
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 10px rgba(183, 110, 121, 0.5);
+      z-index: 0;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-color: #b76e79;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -30px;
+      left: 0;
+    }
+    .heart::after {
+      left: 30px;
+      top: 0;
+    }
+    @keyframes pulse {
+      0% { transform: translateX(-50%) rotate(45deg) scale(1); }
+      50% { transform: translateX(-50%) rotate(45deg) scale(1.1); }
+      100% { transform: translateX(-50%) rotate(45deg) scale(1); }
+    }
+    
+    /* Surprise Section Styles */
+    #surprise {
+      padding: 1rem;
+    }
+    .stage-buttons {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      z-index: 2;
+      position: relative;
+    }
+    .stage-btn {
+      padding: 10px 20px;
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      color: #333;
+      font-size: 14px;
+    }
+    .stage-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    /* Memory Container with Smooth Slide & Fade Transitions */
+    .memory-container {
+      position: relative;
+      min-height: 240px;
+      margin-top: 20px;
+    }
+    .memory-message {
+      opacity: 0;
+      transform: translateX(20px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: none;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .memory-message.active-message {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+      display: block;
+    }
+    /* Memory Images with Rose–Gold Borders (All using the same image) */
+    .memory-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      border: 3px solid #b76e79;
+    }
+    
+    /* Timeline Animation Styles */
+    .timeline {
+      margin-top: 30px;
+      position: relative;
+      width: 100%;
+      height: 50px;
+    }
+    .timeline.hidden {
+      display: none;
+    }
+    .timeline .line {
+      position: absolute;
+      top: 25px;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      background: #b76e79;
+      animation: drawLine 2s forwards;
+    }
+    @keyframes drawLine {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+    .timeline .markers {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+    .marker {
+      width: 20px;
+      height: 20px;
+      background: #b76e79;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: popMarker 0.5s forwards;
+    }
+    .marker:nth-child(1) { animation-delay: 1s; }
+    .marker:nth-child(2) { animation-delay: 1.5s; }
+    .marker:nth-child(3) { animation-delay: 2s; }
+    @keyframes popMarker {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+    
+    /* Responsive Enhancements for Larger Screens */
+    @media (min-width: 600px) {
+      .container {
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
+      }
+      .memory-container {
+        min-height: 260px;
+      }
+      h1 {
+        font-size: 3rem;
+      }
+      .stage-btn {
+        font-size: 16px;
+      }
+      .overlay-text {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .overlay-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 10px;
+      box-sizing: border-box;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts">
+    <div class="small-heart"></div>
+    <div class="small-heart"></div>
+    <div class="small-heart"></div>
+    <div class="small-heart"></div>
+    <div class="small-heart"></div>
+  </div>
+  
+  <!-- YouTube Player (Invisible) -->
+  <div id="youtubePlayer"></div>
+  
+  <!-- Date Check Container -->
+  <div id="dateCheck" class="container">
+    <h1>วันครบรอบวันที่อะไรจ๊ะ ❤️</h1>
+    <input type="date" id="anniversaryDate" />
+    <button onclick="checkDate()">Unlock Surprise</button>
+  </div>
+  
+  <!-- Surprise Section -->
+  <div id="surprise" class="hidden container">
+    <!-- Cute Icon at the Top -->
+    <img src="images/cinnamoroll.png" class="cute-icon" alt="Cute Cinnamoroll Icon" />
+    <!-- Central Animated Heart -->
+    <div class="heart"></div>
+    <h1>Our Love Journey 💕</h1>
+    <div class="stage-buttons">
+      <button class="stage-btn" onclick="showMemory('middle')">Middle School Days</button>
+      <button class="stage-btn" onclick="showMemory('high')">High School Romance</button>
+      <button class="stage-btn" onclick="showMemory('uni')">University Love</button>
+      <button class="stage-btn" onclick="window.location.href='album.html'">Timeline</button>
+    </div>
+    
+    <!-- Memory Container -->
+    <div class="memory-container">
+      <div id="middle-message" class="memory-message">
+        <div class="image-container">
+          <!-- All memory messages now use the same image -->
+          <img src="images/middle-school-photo.jpg" class="memory-img" alt="Memory Photo">
+          <div class="overlay-text">
+            <p>🌼 Our First Meeting 🌼</p>
+            <p>ครั้งเเรกที่เค้าได้เจอเตง เค้าก็รู้สึกเฉยๆ จนกระทั้งเราได้คุยกันรู้สึกว่าตอนนั้นเค้าโดนจับเเยกกับ เพื่อนมอสเลยรู้สึกไม่ค่อยมีเพื่อน เค้าเลยถือโอกาส ชวนเธอคุยซึ่งตอนนั้นเราก็ยังไม่ได้รู้จักอะไรกันมากเเต่ก็เป็น การเจอกันเเบบ บังเอิญละนะ</p>
+          </div>
+        </div>
+      </div>
+      <div id="high-message" class="memory-message">
+        <div class="image-container">
+          <img src="images/prom-night-photo.jpg" class="memory-img" alt="Memory Photo">
+          <div class="overlay-text">
+            <p>🌹 Blossoming Love 🌹</p>
+            <p>ตอนนั้นนี่เเหล่ะที่เราเริ่มคบกันเค้ายังจำได้เลยว่าตอนนั้น เค้าเองก็เริ่มรสว่าเธอเองก็มีใจให้เค้า ตอนเเรกบอกตามตรงไม่คิดอะไรเลย จนกระทั่งเหมือนมีตอนนึงเค้าทำอะไรไม่ได้สักอย่างละเธอเป็นคนเดียวที่ยืนมือมาช่วย เค้าเลยเริ่มสนใจในตัวเธอ ไม่รู้หรอกว่านี่คือชอบ เเต่ก็คือ เค้าตามดูตามส่อง ละก็สนใจว่า เธอเป็นยังไง +มีเพื่อนบอกใบ้นิดๆ ตอนเธอมาสารภาพ บอกตามตรงช็อคจนพูดอะไรเเปลกๆไป ช่วงนั้นเราน่าจะหวานที่สุดละ เป็นประสบการณ์ที่ดีในวัยเด็กเลยทีเดียว ปล.ตอนที่เขินที่สุดคือเปลี่ยนชื่อเรียกกันนี่เเหล่ะ.</p>
+          </div>
+        </div>
+      </div>
+      <div id="uni-message" class="memory-message">
+        <div class="image-container">
+          <img src="images/university-photo.jpg" class="memory-img" alt="Memory Photo">
+          <div class="overlay-text">
+            <p>💖 Growing Together 💖</p>
+            <p>ตอนนี้เราเองก็พัฒนาความสัมพันธ์มาถึงจุดที่ไกลกว่าที่เค้าคิดไว้มากเราเองผ่านทั้งจุดที่ไม่เข้าใจกัน ทะเลาะกัน พ่นคำลบใส่กัน เเต่อย่างไรก็ตามถือว่าเป็นข้อดีคือเราได้ทบทวนเเล้วปรับปรุงตัวเราให้ดีขึ้น ซึ่งเค้าเองก็มองเห็นนะ ว่าเธอใจเย็นลงเยอะเเล้วก็มีเหตุผลมากขึ้นซึ่งลึกๆเค้าเองก็ดีใจมากๆเเต่เค้าเป็นคนพูดไม่ค่อยเก่งอะเเหล่ะ ส่วนช่วงนี้ตัวเค้าเองก็ได้ทบทวนตัวเองเเล้วก็เปลี่ยนให้เป็นคนที่ดีขึ้นอยู่เพราะงั้นพยายามไปด้วยกันนะ อย่างงไงก็ตามก็ขอให้รักกันต่อไปนานๆนะคับ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Timeline Animation -->
+    <div id="timeline" class="timeline hidden">
+      <div class="line"></div>
+      <div class="markers">
+        <div class="marker"></div>
+        <div class="marker"></div>
+        <div class="marker"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Track visited memory sections
+    const visitedSections = {
+      middle: false,
+      high: false,
+      uni: false
+    };
+    
+    function checkDate() {
+      const inputDate = new Date(document.getElementById("anniversaryDate").value);
+      const correctDate = new Date();
+      correctDate.setMonth(1); // February (0-indexed)
+      correctDate.setDate(13);
+      
+      if (
+        inputDate.getMonth() === correctDate.getMonth() &&
+        inputDate.getDate() === correctDate.getDate()
+      ) {
+        document.getElementById("dateCheck").classList.add("hidden");
+        document.getElementById("surprise").classList.remove("hidden");
+        if (player) {
+          player.unMute();
+          player.playVideo();
+        }
+      } else {
+        alert("จำผิดอะป่าวนึกดีๆ ❤️");
+      }
+    }
+    
+    function showMemory(memory) {
+      // Mark this section as visited
+      visitedSections[memory] = true;
+      
+      // Hide all memory messages
+      document.querySelectorAll('.memory-message').forEach(msg => {
+        msg.classList.remove('active-message');
+      });
+      
+      // Show the selected memory message
+      const next = document.getElementById(memory + "-message");
+      next.classList.add("active-message");
+      
+      // Check if all sections have been visited, then trigger timeline animation
+      if (visitedSections.middle && visitedSections.high && visitedSections.uni) {
+        showTimeline();
+      }
+    }
+    
+    function showTimeline() {
+      const timeline = document.getElementById("timeline");
+      if (timeline.classList.contains("hidden")) {
+        timeline.classList.remove("hidden");
+      }
+    }
+    
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player("youtubePlayer", {
+        height: "0",
+        width: "0",
+        videoId: "2Vv-BfVoq4g",
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: "2Vv-BfVoq4g",
+          controls: 0,
+          modestbranding: 1,
+          disablekb: 1,
+        },
+        events: {
+          onReady: onPlayerReady,
+        },
+      });
+    }
+    
+    function onPlayerReady(event) {
+      event.target.setVolume(30);
+      event.target.playVideo();
+    }
+  </script>
+</body>
+</html>
