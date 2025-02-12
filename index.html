@@ -4,10 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Special Day ❤️</title>
+  <meta name="description" content="Celebrate our special day with memories of our love journey." />
+  <!-- YouTube Iframe API -->
   <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     /* Reset & Base Styles */
-    * {
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -19,14 +21,14 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow-y: auto; /* allow vertical scrolling */
+      overflow-y: auto;
       position: relative;
+      padding: 20px;
     }
     /* Mobile adjustments */
     @media (max-width: 600px) {
       body {
         align-items: flex-start;
-        padding-top: 20px;
       }
     }
     
@@ -73,12 +75,15 @@
         transform: translateY(100vh) rotate(45deg);
         opacity: 0;
       }
-      50% { opacity: 1; }
+      50% {
+        opacity: 1;
+      }
       100% {
         transform: translateY(-100px) rotate(45deg);
         opacity: 0;
       }
     }
+    /* Delay for individual hearts */
     .small-heart:nth-child(1) { left: 10%; animation-delay: 0s; }
     .small-heart:nth-child(2) { left: 30%; animation-delay: 1s; }
     .small-heart:nth-child(3) { left: 50%; animation-delay: 2s; }
@@ -100,7 +105,7 @@
       margin-bottom: 20px;
     }
     
-    /* Cute Icon (e.g., Cinnamoroll) */
+    /* Cute Icon */
     .cute-icon {
       width: 150px;
       margin: 0 auto 10px;
@@ -240,7 +245,7 @@
       pointer-events: auto;
       display: block;
     }
-    /* Memory Images with Rose–Gold Borders (All using the same image) */
+    /* Memory Images with Rose–Gold Borders */
     .memory-img {
       width: 100%;
       height: auto;
@@ -340,7 +345,7 @@
 </head>
 <body>
   <!-- Floating Hearts Background -->
-  <div class="floating-hearts">
+  <div class="floating-hearts" aria-hidden="true">
     <div class="small-heart"></div>
     <div class="small-heart"></div>
     <div class="small-heart"></div>
@@ -349,71 +354,74 @@
   </div>
   
   <!-- YouTube Player (Invisible) -->
-  <div id="youtubePlayer"></div>
+  <div id="youtubePlayer" aria-hidden="true"></div>
   
-  <!-- Date Check Container -->
-  <div id="dateCheck" class="container">
-    <h1>วันครบรอบวันที่อะไรจ๊ะ ❤️</h1>
-    <input type="date" id="anniversaryDate" />
-    <button onclick="checkDate()">Unlock Surprise</button>
-  </div>
-  
-  <!-- Surprise Section -->
-  <div id="surprise" class="hidden container">
-    <!-- Cute Icon at the Top -->
-    <img src="images/cinnamoroll.png" class="cute-icon" alt="Cute Cinnamoroll Icon" />
-    <!-- Central Animated Heart -->
-    <div class="heart"></div>
-    <h1>Our Love Journey 💕</h1>
-    <div class="stage-buttons">
-      <button class="stage-btn" onclick="showMemory('middle')">Middle School Days</button>
-      <button class="stage-btn" onclick="showMemory('high')">High School Romance</button>
-      <button class="stage-btn" onclick="showMemory('uni')">University Love</button>
-      <button class="stage-btn" onclick="window.location.href='album.html'">Timeline</button>
-    </div>
+  <main>
+    <!-- Date Check Section -->
+    <section id="dateCheck" class="container">
+      <h1>วันครบรอบวันที่อะไรจ๊ะ ❤️</h1>
+      <!-- Hidden label for accessibility -->
+      <label for="anniversaryDate" class="visually-hidden">Select Anniversary Date</label>
+      <input type="date" id="anniversaryDate" />
+      <button type="button" onclick="checkDate()">Unlock Surprise</button>
+    </section>
     
-    <!-- Memory Container -->
-    <div class="memory-container">
-      <div id="middle-message" class="memory-message">
-        <div class="image-container">
-          <!-- All memory messages now use the same image -->
-          <img src="images/middle-school-photo.jpg" class="memory-img" alt="Memory Photo">
-          <div class="overlay-text">
-            <p>🌼 Our First Meeting 🌼</p>
-            <p>ครั้งเเรกที่เค้าได้เจอเตง เค้าก็รู้สึกเฉยๆ จนกระทั้งเราได้คุยกันรู้สึกว่าตอนนั้นเค้าโดนจับเเยกกับ เพื่อนมอสเลยรู้สึกไม่ค่อยมีเพื่อน เค้าเลยถือโอกาส ชวนเธอคุยซึ่งตอนนั้นเราก็ยังไม่ได้รู้จักอะไรกันมากเเต่ก็เป็น การเจอกันเเบบ บังเอิญละนะ</p>
+    <!-- Surprise Section -->
+    <section id="surprise" class="container hidden">
+      <!-- Cute Icon -->
+      <img src="images/cinnamoroll.png" class="cute-icon" alt="Cute Cinnamoroll Icon" />
+      <!-- Central Animated Heart -->
+      <div class="heart" aria-hidden="true"></div>
+      <h1>Our Love Journey 💕</h1>
+      <div class="stage-buttons">
+        <button class="stage-btn" type="button" onclick="showMemory('middle')">Middle School Days</button>
+        <button class="stage-btn" type="button" onclick="showMemory('high')">High School Romance</button>
+        <button class="stage-btn" type="button" onclick="showMemory('uni')">University Love</button>
+        <button class="stage-btn" type="button" onclick="window.location.href='album.html'">Timeline</button>
+      </div>
+      
+      <!-- Memory Container -->
+      <div class="memory-container">
+        <div id="middle-message" class="memory-message">
+          <div class="image-container">
+            <img src="images/middle-school-photo.jpg" class="memory-img" alt="Middle School Memory">
+            <div class="overlay-text">
+              <p>🌼 Our First Meeting 🌼</p>
+              <p>ครั้งเเรกที่เค้าได้เจอเตง เค้าก็รู้สึกเฉยๆ จนกระทั้งเราได้คุยกันรู้สึกว่าตอนนั้นเค้าโดนจับเเยกกับ เพื่อนมอสเลยรู้สึกไม่ค่อยมีเพื่อน เค้าเลยถือโอกาส ชวนเธอคุยซึ่งตอนนั้นเราก็ยังไม่ได้รู้จักอะไรกันมากเเต่ก็เป็น การเจอกันเเบบ บังเอิญละนะ</p>
+            </div>
+          </div>
+        </div>
+        <div id="high-message" class="memory-message">
+          <div class="image-container">
+            <img src="images/prom-night-photo.jpg" class="memory-img" alt="High School Memory">
+            <div class="overlay-text">
+              <p>🌹 Blossoming Love 🌹</p>
+              <p>ตอนนั้นนี่เเหล่ะที่เราเริ่มคบกัน เค้ายังจำได้เลยว่าตอนนั้นเค้าเองก็เริ่มรสว่าเธอมีใจให้เค้า ตอนเเรกบอกตามตรงไม่คิดอะไรเลย จนกระทั่งเหมือนมีตอนนึงที่เค้าทำอะไรไม่ได้สักอย่างและเธอเป็นคนเดียวที่ยื่นมือมาช่วย เค้าเลยเริ่มสนใจในตัวเธอ ไม่รู้หรอกว่านี่คือชอบ แต่ก็เป็นเพียงการตามดูตามส่อง พร้อมกับมีเพื่อนบอกใบ้นิดๆ ตอนเธอมาสารภาพ บอกตามตรงช็อคจนพูดอะไรแปลกๆ ช่วงนั้นเราอาจจะหวานที่สุดแล้ว เป็นประสบการณ์ดีในวัยเด็ก ปล.ตอนที่เขินที่สุดคือการเปลี่ยนชื่อเรียกกันนี่แหละ</p>
+            </div>
+          </div>
+        </div>
+        <div id="uni-message" class="memory-message">
+          <div class="image-container">
+            <img src="images/university-photo.jpg" class="memory-img" alt="University Memory">
+            <div class="overlay-text">
+              <p>💖 Growing Together 💖</p>
+              <p>ตอนนี้เราเองก็พัฒนาความสัมพันธ์มาถึงจุดที่ไกลกว่าที่เค้าคิดไว้ ผ่านทั้งจุดที่ไม่เข้าใจกัน ทะเลาะกัน และพ่นคำลบใส่กัน แต่ก็เป็นข้อดีที่เราได้ทบทวนและปรับปรุงตัวเอง ซึ่งเค้าเองก็สังเกตว่าเธอใจเย็นลงและมีเหตุผลมากขึ้น เค้าดีใจมาก ๆ แม้จะพูดไม่ค่อยเก่ง ส่วนช่วงนี้ตัวเค้าเองก็ได้ทบทวนและเปลี่ยนให้เป็นคนที่ดีขึ้น จึงขอให้รักกันต่อไปนาน ๆ นะคับ</p>
+            </div>
           </div>
         </div>
       </div>
-      <div id="high-message" class="memory-message">
-        <div class="image-container">
-          <img src="images/prom-night-photo.jpg" class="memory-img" alt="Memory Photo">
-          <div class="overlay-text">
-            <p>🌹 Blossoming Love 🌹</p>
-            <p>ตอนนั้นนี่เเหล่ะที่เราเริ่มคบกันเค้ายังจำได้เลยว่าตอนนั้น เค้าเองก็เริ่มรสว่าเธอเองก็มีใจให้เค้า ตอนเเรกบอกตามตรงไม่คิดอะไรเลย จนกระทั่งเหมือนมีตอนนึงเค้าทำอะไรไม่ได้สักอย่างละเธอเป็นคนเดียวที่ยืนมือมาช่วย เค้าเลยเริ่มสนใจในตัวเธอ ไม่รู้หรอกว่านี่คือชอบ เเต่ก็คือ เค้าตามดูตามส่อง ละก็สนใจว่า เธอเป็นยังไง +มีเพื่อนบอกใบ้นิดๆ ตอนเธอมาสารภาพ บอกตามตรงช็อคจนพูดอะไรเเปลกๆไป ช่วงนั้นเราน่าจะหวานที่สุดละ เป็นประสบการณ์ที่ดีในวัยเด็กเลยทีเดียว ปล.ตอนที่เขินที่สุดคือเปลี่ยนชื่อเรียกกันนี่เเหล่ะ.</p>
-          </div>
+      
+      <!-- Timeline Animation -->
+      <div id="timeline" class="timeline hidden">
+        <div class="line"></div>
+        <div class="markers">
+          <div class="marker"></div>
+          <div class="marker"></div>
+          <div class="marker"></div>
         </div>
       </div>
-      <div id="uni-message" class="memory-message">
-        <div class="image-container">
-          <img src="images/university-photo.jpg" class="memory-img" alt="Memory Photo">
-          <div class="overlay-text">
-            <p>💖 Growing Together 💖</p>
-            <p>ตอนนี้เราเองก็พัฒนาความสัมพันธ์มาถึงจุดที่ไกลกว่าที่เค้าคิดไว้มากเราเองผ่านทั้งจุดที่ไม่เข้าใจกัน ทะเลาะกัน พ่นคำลบใส่กัน เเต่อย่างไรก็ตามถือว่าเป็นข้อดีคือเราได้ทบทวนเเล้วปรับปรุงตัวเราให้ดีขึ้น ซึ่งเค้าเองก็มองเห็นนะ ว่าเธอใจเย็นลงเยอะเเล้วก็มีเหตุผลมากขึ้นซึ่งลึกๆเค้าเองก็ดีใจมากๆเเต่เค้าเป็นคนพูดไม่ค่อยเก่งอะเเหล่ะ ส่วนช่วงนี้ตัวเค้าเองก็ได้ทบทวนตัวเองเเล้วก็เปลี่ยนให้เป็นคนที่ดีขึ้นอยู่เพราะงั้นพยายามไปด้วยกันนะ อย่างงไงก็ตามก็ขอให้รักกันต่อไปนานๆนะคับ</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Timeline Animation -->
-    <div id="timeline" class="timeline hidden">
-      <div class="line"></div>
-      <div class="markers">
-        <div class="marker"></div>
-        <div class="marker"></div>
-        <div class="marker"></div>
-      </div>
-    </div>
-  </div>
+    </section>
+  </main>
   
   <script>
     // Track visited memory sections
@@ -424,7 +432,12 @@
     };
     
     function checkDate() {
-      const inputDate = new Date(document.getElementById("anniversaryDate").value);
+      const inputValue = document.getElementById("anniversaryDate").value;
+      if (!inputValue) {
+        alert("Please select a date.");
+        return;
+      }
+      const inputDate = new Date(inputValue);
       const correctDate = new Date();
       correctDate.setMonth(1); // February (0-indexed)
       correctDate.setDate(13);
@@ -440,7 +453,7 @@
           player.playVideo();
         }
       } else {
-        alert("จำผิดอะป่าวนึกดีๆ ❤️");
+        alert("จำผิดอะป่าว นึกดีๆ ❤️");
       }
     }
     
@@ -454,10 +467,10 @@
       });
       
       // Show the selected memory message
-      const next = document.getElementById(memory + "-message");
-      next.classList.add("active-message");
+      const memoryMessage = document.getElementById(memory + "-message");
+      memoryMessage.classList.add("active-message");
       
-      // Check if all sections have been visited, then trigger timeline animation
+      // Trigger timeline if all memories have been visited
       if (visitedSections.middle && visitedSections.high && visitedSections.uni) {
         showTimeline();
       }
@@ -465,11 +478,10 @@
     
     function showTimeline() {
       const timeline = document.getElementById("timeline");
-      if (timeline.classList.contains("hidden")) {
-        timeline.classList.remove("hidden");
-      }
+      timeline.classList.remove("hidden");
     }
     
+    // YouTube Player Setup
     let player;
     function onYouTubeIframeAPIReady() {
       player = new YT.Player("youtubePlayer", {
@@ -482,11 +494,11 @@
           playlist: "2Vv-BfVoq4g",
           controls: 0,
           modestbranding: 1,
-          disablekb: 1,
+          disablekb: 1
         },
         events: {
-          onReady: onPlayerReady,
-        },
+          onReady: onPlayerReady
+        }
       });
     }
     
